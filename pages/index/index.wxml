@@ -1,5 +1,6 @@
 <!--index.wxml-->
 <view class="container">
+  <image class="bgimg" src="../../imgs/bgimg.png"></image>
   <view class="userinfo">
     <block wx:if="{{canIUseOpenData}}" calss="userinfo-opendata">
       <view class="userinfo-avatar" bindtap="bindViewTap">
