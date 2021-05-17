@@ -4,45 +4,72 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    canIUseGetUserProfile: false,
-    canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName') // 如需尝试获取用户信息可改为false
+    halfCircleCount: [],
+    hCount: [],
+    vCount: [],
+    inningTitleInput: "",
+    inningTaskInput: "",
+    botBtnContent: "",
+    processStatus: { inningSetted: false, canStartLearning: false, onLearning: false },
+    inningMember:[],
   },
-  // 事件处理函数
-  bindViewTap() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+  getInningTitleInput(e) {
+    this.setData({ inningTitleInput: e.detail.value });
   },
-  onLoad() {
-    if (wx.getUserProfile) {
-      this.setData({
-        canIUseGetUserProfile: true
-      })
+  getInningTaskInput(e) {
+    this.setData({ inningTaskInput: e.detail.value });
+  },
+  setAInning() {
+    console.log(this.data.inningTitleInput);
+    console.log(this.data.inningTaskInput);
+    // update bottom button content
+    if (this.data.processStatus.onLearning === true) {
+      // DO NOTHING
+    } else if (this.data.processStatus.inningSetted === false) {
+      this.setData({ ['processStatus.inningSetted']: true })
+      this.setData({ ['processStatus.canStartLearning']: false })
+      // update view
+
+      this.setData({ botBtnContent: "邀请好友加入" })
+      console.log(this.data.processStatus);
+    } else if (this.data.processStatus.canStartLearning === true) {
+      this.setData({ ['processStatus.onLearning']: true })
+      this.setData({ botBtnContent: "结伴学习中" })
     }
   },
-  getUserProfile(e) {
-    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    })
-  },
-  getUserInfo(e) {
-    // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
-    console.log(e)
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+  onLoad() {
+    // 向后端申请加载作业局状态，设置processStaus
+    // processStatus: { inningSetted: false, canStartLearning: false,onLearning:false }
+    let count = 12;
+    // const count = 2;
+    let tmp = [];
+    for (let i = 0; i < count; i++) {
+      tmp.push(i);
+    }
+    this.setData({ halfCircleCount: tmp });
+    count = 11;
+    tmp = [];
+    for (let i = 0; i < count; i++) {
+      tmp.push(i);
+    }
+    this.setData({ hCount: tmp });
+    count = 10;
+    tmp = [];
+    for (let i = 0; i < count; i++) {
+      tmp.push(i);
+    }
+    this.setData({ vCount: tmp });
+    // console.log(this.data.halfCircleCount);
+    // init bottom button content
+    if (this.data.processStatus.onLearning === true) {
+      this.setData({ botBtnContent: "结伴学习中" })
+    }
+    if (this.data.processStatus.inningSetted === false) {
+      this.setData({ botBtnContent: "立即组局" })
+    } else if (this.data.processStatus.canStartLearning === false) {
+      this.setData({ botBtnContent: "邀请好友加入" })
+    } else if (this.data.processStatus.canStartLearning === true) {
+      this.setData({ botBtnContent: "开始结伴学习" })
+    }
   }
 })

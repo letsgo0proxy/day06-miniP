@@ -37,17 +37,10 @@
         <textarea bindinput="getinningTaskInput" class="inning-task-input" type="text" name="" id=""
           placeholder="例：8点起床，学习2小时" />
         </view>
-        <view class="inning-member-title">
-          <view></view>
-          <view>作业局成员：</view>
-        </view>
-        <view class="inning-members">
-          <view class="inning-member" wx:for="{{inningMember}}"></view>
-        </view>
     </view>
   <!-- <button class="shadow"></button>  -->
   <button bindtap="setAInning" class="inning-btn">
-    {{botBtnContent}}
+    立即组局
   </button>
   </view>
 </view>
