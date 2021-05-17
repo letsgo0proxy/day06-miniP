@@ -34,19 +34,19 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  /* justify-content: center; */
+  /* justify-content: space-around; */
 }
 
 .inning-bg-attach {
   background-color: #ffb934;
   /* background-color: black; */
   position: absolute;
-  left: -47rpx;
+  left: -50rpx;
   top: 7rpx;
-  width: 48rpx;
+  width: 50rpx;
   height: 68rpx;
   /* border-radius 需要研究一下 */
-  border-radius: 48rpx 10rpx  0 0 / 75rpx 8rpx 0 0;
+  border-radius: 48rpx 10rpx 0 0 / 75rpx 8rpx 0 0;
   /* border-start-end-radius: 50rpx; */
   /* border-bottom-left-radius: 100rpx; */
 }
@@ -59,6 +59,7 @@
   height: 569rpx;
   left: 0;
   top: 0;
+  /* border-radius: 36rpx 0 0; */
   /* z-index: 999; */
   /* mix-blend-mode:inherit; */
 }
@@ -71,6 +72,7 @@
   height: 460rpx;
   right: 0;
   top: 0;
+  border-radius: 0 36rpx 0 0;
 }
 
 .inning-container {
@@ -82,12 +84,12 @@
   /* width: fit-content; */
   min-height: fit-content;
   margin: 40rpx 0rpx;
+  /* margin: 0; */
   padding: 40rpx 50rpx;
   /* z-index: 999; */
   background-color: #ffa927;
-  /* background-color: transparent; */
+  /* background-color: black; */
   border: 4rpx solid #ffd670;
-  position: relative;
   border-radius: 10rpx;
   display: flex;
   align-items: center;
@@ -97,7 +99,8 @@
 .top {
   position: absolute;
   /* top 值可能需要适应 */
-  top: -4rpx; 
+  box-sizing: border-box;
+  top: -4rpx;
   left: 0;
   width: 100%;
   height: 20rpx;
@@ -121,7 +124,8 @@
 
 .bottom {
   position: absolute;
-  bottom: -13rpx;
+  box-sizing: border-box;
+  bottom: -15rpx;
   left: 0;
   width: 100%;
   height: 20rpx;
@@ -157,22 +161,27 @@
   align-items: center;
   justify-content: space-around;
 }
+
 .vertical {
   flex-direction: row;
   justify-content: space-around;
 }
-.vertical > .v-line {
+
+.vertical>.v-line {
   width: 0;
   height: 100%;
+  box-sizing: border-box;
   border: 1px solid #ffb959;
   z-index: 1;
   /* background-blend-mode: ; */
 }
-.horizontal > .h-line {
+
+.horizontal>.h-line {
   height: 0;
   width: 100%;
   border: 1px solid #ffb959;
 }
+
 .inning-content {
   position: relative;
   box-sizing: border-box;
@@ -185,25 +194,30 @@
   /* background-color: red; */
   padding: 0 10rpx;
 }
+
 .inning-title,
-.inning-task {
+.inning-task,
+.inning-member-title {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
+
 .inning-title view:nth-child(1),
 .inning-task view:nth-child(1),
-.inning-member-title view:nth-child(1){
+.inning-member-title view:nth-child(1) {
   width: 12rpx;
   height: 12rpx;
   background-color: red;
   border-radius: 100%;
   margin-right: 10rpx;
 }
-.inning-content > .inning-title-input {
+
+.inning-content>.inning-title-input {
   box-sizing: border-box;
-  background-color: white;
+  background-color: #ffe8b2;
   height: 65rpx;
   width: 100%;
   text-align: center;
@@ -214,21 +228,71 @@
   border: 1px solid #ff9400;
   border-radius: 25rpx;
 }
-.inning-content .inning-task{
+
+.inning-content .inning-task {
   margin-top: 10rpx;
   margin-bottom: 15rpx;
 }
-.inning-content textarea{
+
+.inning-content textarea {
   box-sizing: border-box;
   width: 100%;
   height: 230rpx;
   overflow-y: auto;
-  background-color: white;
+  background-color: #ffe8b2;
   text-align: center;
   padding: 10rpx;
   border: 1px solid #ff9400;
   border-radius: 9rpx;
   margin-bottom: 40rpx;
+}
+
+/* .btn-container {
+  box-sizing: border-box;
+  display: flex;
+  background-color: blue;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+} */
+
+.inning-btn-container {
+  position: relative;
+}
+.inning-btn-attach {
+  display: none;
+  position: relative;
+  background-color: black;
+  top: -75rpx;
+}
+.inning-btn-attach::after {
+  content: '';
+  position: absolute;
+  top: 0rpx;
+  right: 30rpx;
+  z-index: 1000;
+  border: 0px solid transparent;
+  border-bottom: 30rpx solid #e04b4b;
+  border-radius: 0 0 180rpx 0;
+  width: 20rpx;
+  transform: rotate(30deg);
+}
+
+.inning-btn-attach::before {
+  content: "邀请你加入作业局";
+  color: white;
+  background-color: #e04b4b;
+  font-size: .5em;
+  box-sizing: border-box;
+  border-radius: 30rpx;
+  text-align: center;
+  position: absolute;
+  top: -45rpx;
+  right: -125rpx;
+  z-index: 1001;
+  padding: 15rpx 15rpx;
 }
 /* TODO 用shadow样式做可能比较好 */
 .inning-btn {
@@ -244,8 +308,12 @@
   font-weight: bold;
   background-image: linear-gradient(#3a81fb, #3b71f3);
   box-shadow: 0 10rpx 2rpx #3b71f3;
+  margin: 0 auto;
+  z-index: 998;
   /* display: none; */
 }
+
+
 .shadow {
   box-sizing: border-box;
   position: absolute;
@@ -254,4 +322,124 @@
   border-radius: 100rpx;
   width: 1px;
   background-color: #4c72cf;
+}
+
+.inning-member-title {
+  margin-top: -20rpx;
+}
+
+.inning-members {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+  /* background-color: black; */
+  padding: 10rpx 10rpx 0rpx 10rpx;
+  /* margin-bottom: 10rpx; */
+}
+
+.inning-member {
+  background-color: white;
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80rpx;
+  height: 80rpx;
+  border: 2rpx solid white;
+  border-radius: 100%;
+  z-index: 999;
+}
+
+.inning-member:nth-child(1):after {
+  content: '组长';
+  position: absolute;
+  bottom: 19rpx;
+  color: white;
+  padding: 3rpx 10rpx;
+  width: fit-content;
+  font-size: .1em;
+  background-image: linear-gradient(#ff6d53, #f95433);
+  border-radius: 15rpx;
+}
+
+.inning-member>image {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
+.inning-member>span {
+  /* 这个好像没有居中嘞 */
+  font-size: 1.3em;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  /* background-color: blue; */
+}
+
+.dialog {
+  display: none;
+  position: fixed;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  padding: 50rpx 0rpx;
+  top: 45%;
+  background-color: white;
+  color: black;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 999;
+  flex-direction: column;
+  box-shadow: 0 2rpx 4rpx yellow;
+}
+
+.dialog>view {
+  margin: 0 0 80rpx 0;
+}
+
+.test-tools {
+  background-color: black;
+  display: flex;
+  position: fixed;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: fit-content;
+}
+
+.tool-btn {
+  display: block;
+
+  box-sizing: border-box;
+
+  width: fit-content;
+  margin: 3rpx;
+  padding: 3rpx 10rpx;
+  background-color: white;
+  color: black;
+  z-index: 999;
+  box-shadow: 0 2rpx 3rpx black;
+  border: 3rpx solidyellow;
+  border-radius: 5rpx;
+}
+
+.tip {
+  display: none;
+  position: absolute;
+  box-sizing: border-box;
+  bottom: -39rpx;
+  left: 0;
+  width: 605rpx;
+  margin: 0rpx 30rpx 0 75rpx;
+  font-size: xx-small;
+  text-align: center;
+  color: #836832;
+  background-color: transparent;
+  /* background-color: red; */
+}
+.hide-dialog-btn{
+  background-color: #ffe8b2;
 }

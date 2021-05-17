@@ -3,11 +3,12 @@
   <!-- 宽度占满，高度按比例变化 -->
   <image mode="widthFix" class="bgimg" src="../../imgs/bgimg.png"></image>
   <image mode="widthFix" class="horn" src="../../imgs/horn.png"></image>
-  <view class="task-inning">
+  <view style="top:{{taskInning.top}};height:{{taskInning.height}}" class="task-inning">
     <image class="inning-bg-attach"></image>
-    <image class="inning-bg-left"></image>
-    <image class="inning-bg-right"></image>
-    <view class="inning-container">
+    <image style="height:{{taskInning.leftHeight}}" class="inning-bg-left"></image>
+    <image style="height:{{taskInning.rightHeight}}" class="inning-bg-right"></image>
+    <view style="{{bgColor}};padding-bottom:{{taskInning.paddingBottom}};margin-bottom:{{taskInning.subMarginBottom}}"
+      class="inning-container">
       <view class="top">
         <!-- 背景制作 -->
         <!-- wx:key 用法 -->
@@ -28,26 +29,41 @@
           <view></view>
           <view>作业局名称：</view>
         </view>
-        <input maxlength="20" bindinput="getInningTitleInput" placeholder="例：不写完作业不睡觉局" class="inning-title-input"
-          type="text" name="" id="" />
+        <input value="{{inningTitleInput}}" maxlength="20" bindinput="getInningTitleInput" placeholder="例：不写完作业不睡觉局"
+          class="inning-title-input" type="text" name="" id="" />
         <view class="inning-task">
           <view></view>
           <view>学习任务：</view>
         </view>
-        <textarea bindinput="getinningTaskInput" class="inning-task-input" type="text" name="" id=""
-          placeholder="例：8点起床，学习2小时" />
+        <textarea value="{{inningTaskInput}}" bindinput="getinningTaskInput" class="inning-task-input" type="text"
+          name="" id="" placeholder="例：8点起床，学习2小时" />
         </view>
-        <view class="inning-member-title">
+        <!-- 为什么不写成这样？？？ -->
+        <!-- <view style="{{memberDisplay}}" class="inning-member-title"> -->
+        <view style="display:{{memberDisplay}}" class="inning-member-title">
           <view></view>
           <view>作业局成员：</view>
         </view>
-        <view class="inning-members">
-          <view class="inning-member" wx:for="{{inningMember}}"></view>
+        <view style="display:{{memberDisplay}}" class=" inning-members">
+          <view class="inning-member" wx:for="{{inningMember}}">
+            <image mode="widthFix" src="{{item.src}}" wx:if="{{item.existed === true}}"></image>
+            <span wx:else bindtap="invite">+</span>
+          </view>
         </view>
     </view>
-  <!-- <button class="shadow"></button>  -->
-  <button bindtap="setAInning" class="inning-btn">
-    {{botBtnContent}}
-  </button>
+    <!-- 为什么用view包裹button标签， 因为button上的before伪类显示不完整 -->
+    <view  class="inning-btn-container" >
+      <button bindtap="setAInning" class="inning-btn">
+        {{botBtnContent}}
+      </button>
+      <view style="{{inBtnAttachDisplay}}" class="inning-btn-attach" ></view>
+    </view>
+    <view style="{{tipDisplay}}" class="tip">{{tip}}</view>
+    <view style="{{dialogDisplay}}" class="dialog"><view>{{dialogInfo}}</view><button class="hide-dialog-btn" bindtap="hideDialog">确认</button></view>
   </view>
+</view>
+<!-- 测试使用 -->
+<view class="test-tools">
+  <view class="tool-btn" bindtap="addPerson">拉人</view>
+  <view class="tool-btn" bindtap="toggleUser">切换用户</view>
 </view>
