@@ -1,0 +1,46 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 宽度占满，高度按比例变化 -->
+  <image mode="widthFix" class="bgimg" src="../../imgs/bgimg.png"></image>
+  <image mode="widthFix" class="horn" src="../../imgs/horn.png"></image>
+  <view class="task-inning">
+    <image class="inning-bg-attach"></image>
+    <image class="inning-bg-left"></image>
+    <image class="inning-bg-right"></image>
+    <view class="inning-container">
+      <view class="top">
+        <!-- 背景制作 -->
+        <!-- wx:key 用法 -->
+        <view class="top-circle" wx:for="{{halfCircleCount}}"></view>
+      </view>
+      <view class="bottom">
+        <view class="bot-circle" wx:for="{{halfCircleCount}}"></view>
+      </view>
+      <view class="horizontal">
+        <view class="h-line" wx:for="{{hCount}}"></view>
+      </view>
+      <view class="vertical">
+        <view class="v-line" wx:for="{{vCount}}"></view>
+      </view>
+      <!-- 主要内容 -->
+      <view class="inning-content">
+        <view class="inning-title">
+          <view></view>
+          <view>作业局名称：</view>
+        </view>
+        <input maxlength="20" bindinput="getInningTitleInput" placeholder="例：不写完作业不睡觉局" class="inning-title-input"
+          type="text" name="" id="" />
+        <view class="inning-task">
+          <view></view>
+          <view>学习任务：</view>
+        </view>
+        <textarea bindinput="getinningTaskInput" class="inning-task-input" type="text" name="" id=""
+          placeholder="例：8点起床，学习2小时" />
+        </view>
+    </view>
+  <!-- <button class="shadow"></button>  -->
+  <button bindtap="setAInning" class="inning-btn">
+    立即组局
+  </button>
+  </view>
+</view>
