@@ -29,13 +29,13 @@
           <view></view>
           <view>作业局名称：</view>
         </view>
-        <input value="{{inningTitleInput}}" maxlength="20" bindinput="getInningTitleInput" placeholder="例：不写完作业不睡觉局"
+        <input disabled="{{disabled}}"  style="{{inputColor}}" value="{{inningTitleInput}}" maxlength="20" bindinput="getInningTitleInput" placeholder="例：不写完作业不睡觉局"
           class="inning-title-input" type="text" name="" id="" />
         <view class="inning-task">
           <view></view>
           <view>学习任务：</view>
         </view>
-        <textarea value="{{inningTaskInput}}" bindinput="getinningTaskInput" class="inning-task-input" type="text"
+        <textarea  disabled="{{disabled}}" style="{{inputColor}}" value="{{inningTaskInput}}" bindinput="getinningTaskInput" class="inning-task-input" type="text"
           name="" id="" placeholder="例：8点起床，学习2小时" />
         </view>
         <!-- 为什么不写成这样？？？ -->
@@ -51,7 +51,6 @@
           </view>
         </view>
     </view>
-    <!-- 为什么用view包裹button标签， 因为button上的before伪类显示不完整 -->
     <view  class="inning-btn-container" >
       <button bindtap="setAInning" class="inning-btn">
         {{botBtnContent}}

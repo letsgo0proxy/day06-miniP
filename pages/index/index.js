@@ -4,6 +4,8 @@ const app = getApp()
 
 Page({
   data: {
+    disabled: false,
+    inputColor: "",
     inBtnDisplay: "none",
     // 仅在test时使用
     toggleFlag: false,
@@ -68,7 +70,8 @@ Page({
       if (this.validateInput(this.data.inningTaskInput, "") === false) {
         this.setData({ inningTaskInput: "8点起床，学习2小时" })
       }
-      this.setData({ ['processStatus.inningSetted']: true })
+      this.setData({ ['processStatus.inningSetted']: true });
+
       this.setData({ ['processStatus.canStartLearning']: false })
       // update view
       this.updateBg();
@@ -103,10 +106,10 @@ Page({
       this.data.toggleFlag = false;
     } else {
       this.data.botBtnContentTmp = this.data.botBtnContent;
-      if(this.data.processStatus.accepted === true){
+      if (this.data.processStatus.accepted === true) {
         this.setData({ botBtnContent: "已加入" });
         this.setData({ inBtnAttachDisplay: "" })
-      }else{
+      } else {
         this.setData({ botBtnContent: "立即加入" });
         this.setData({ inBtnAttachDisplay: "display: block" });
       }
@@ -181,11 +184,14 @@ Page({
       this.setData({ memberDisplay: "none" })
       // this.setData({ memberDisplay: "" })
     } else if (this.data.processStatus.canStartLearning === false) {
+
       this.setData({ botBtnContent: "邀请好友加入" })
       this.setData({ memberDisplay: "" })
       this.setData({ tip: "作业局将在明日0点开启，快去邀请好友加入吧！" })
       this.setData({ tipDisplay: "display: block" });
       this.setData({ botBtnContent: "邀请好友加入" })
+      this.setData({ inputColor: "background-color: #ffe8b2;" })
+      this.setData({ disabled: true})
     } else if (this.data.processStatus.canStartLearning === true) {
       this.setData({ tip: "明日0点可开启新的作业局!" })
       this.setData({ tipDisplay: "display: block" });
